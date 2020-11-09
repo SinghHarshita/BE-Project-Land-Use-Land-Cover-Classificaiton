@@ -1,0 +1,8 @@
+affine==2.3.0
+attrs==20.3.0
+click==7.1.2
+click-plugins==1.1.1
+cligj==0.7.0
+numpy==1.19.4
+pyparsing==2.4.7
+snuggs==1.4.7

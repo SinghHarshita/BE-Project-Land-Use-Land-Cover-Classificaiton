@@ -3,6 +3,8 @@
 # Edit at https://www.gitignore.io/?templates=node,react,python
 
 dataset
+tif
+model_sets
 ### Node ###
 # Logs
 logs
