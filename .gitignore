@@ -4,8 +4,10 @@
 
 dataset
 tif
+tiff
 model_sets
 working
+usage
 ### Node ###
 # Logs
 logs
