@@ -33,6 +33,19 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <style>
+    input[type="file"] {
+      display: none;
+    }
+
+    .custom-file-upload {
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -55,7 +68,7 @@
           <!-- <li><a href="#faq">F.A.Q</a></li> -->
           <li><a href="#pricing">TechStack</a></li>
           <li><a href="#contact">Contact Us</a></li>
-          <li><a href="./inner-page.html">Documentation</a></li>
+          <li><a href="./API_Documentation/index.html" target="_blank">Documentation</a></li>
 
           <!-- <li class="get-started"><a href="#features">Get Started</a></li> -->
         </ul>
@@ -193,22 +206,37 @@
           </div>
         </div>
 
-        <div class="row content">
+        <div class="row content" id="DEMOAPI">
           <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
             <img src="assets/img/sat5.jpg" class="img-fluid2" alt="">
           </div>
           <div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
-            <h3>About EuroSAT</h3>
+            <h3>Demo</h3>
             <p class="font-italic">
-              EuroSAT is a dataset that is based on Sentinel-2 satellite images covering 13 spectral bands and consisting of 10 classes with 27000 labeled and geo-referenced samples. 
+              This is a demo of the DeepSight API. Please upload a tiff image if Sentinel-2 satellite (all bands). The API response will be shown.
             </p>
-            <ul>
-              <li><i class="icofont-check"></i> Classes: 10</li>
-              <li><i class="icofont-check"></i> Number of Images: 2000-3000 per class</li>
-              <li><i class="icofont-check"></i> Patch Measure: 64x64 pixels.</li>
-              <li><i class="icofont-check"></i> Class Names: Industrial Buildings, Residential Buildings, Annual Crop, Permanent Crop, River, Sea & Lake, Herbaceous Vegetation, Highway, Pasture and Forest.</li>
-              <li><i class="icofont-check"></i> Open and freely accessible dataset.</li>
-            </ul>
+            <form role="form" class="php-email-form" data-aos="fade-up" id="APIDemoForm">
+              <div class="form-group">
+                <label class="custom-file-upload" >
+                  <input 
+                    placeholder="TIFF Image" 
+                    type="file" 
+                    accept="image/*" 
+                    name="img" 
+                    class="form-control" 
+                    id="img" 
+                    data-msg="Please select only 1 image" 
+                    onchange="fileUploadChange()"
+                  />
+                  <span id="ImageName">Upload tif image</span>
+                </label>
+                
+                <div class="validate"></div>
+              </div>
+              <div class="form-group"><button type="submit" class="btn btn-outline-info">Send Request</button></div>
+            </form>
+
+            <p id="responsePara"></p>
           </div>
         </div>
 
@@ -407,6 +435,56 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    function fileUploadChange(e) {
+      document.getElementById('ImageName').innerText = document.getElementById('img').value.split('\\').pop()
+    }
+
+    APIDemoForm.onsubmit = async(e) => {
+      console.log(e)
+
+      e.preventDefault();
+
+      let body = new FormData()
+
+      body.append('img', document.getElementById('img').files[0], document.getElementById('img').value)
+
+      console.log(body)
+      
+      let req = JSON.stringify({
+        url: 'https://deepsight.azurewebsites.net/predict/',
+        method: 'POST',
+        body: {img: document.getElementById('img').value}      
+      }, null, 2)
+
+      await fetch('https://deepsight.azurewebsites.net/predict/', {
+        method: 'POST',
+        // mode: 'no-cors',
+        body: body
+      }).then((response) => {
+        console.log(response)
+
+        response.json().then((res) => {
+          console.log(res)
+
+          let responsePara = "<h6> RESPONSE </h6> <br /> <strong>Status : </strong>" +  response.status.toString() + " " +
+          response.statusText + "<br />" + "<pre>" + JSON.stringify(res, undefined, 2) + "</pre>"
+          document.getElementById('responsePara').innerHTML = responsePara
+
+          // document.getElementById('responsePara').append(JSON.stringify(response.headers, undefined, 2))
+        }).catch((e) => {
+          console.error(e)
+        })
+      }).catch((e) => {
+        console.error(e)
+      });
+
+      // let result = await response.json();
+
+      // console.log(result, response)
+    }
+  </script>
 
 </body>
 

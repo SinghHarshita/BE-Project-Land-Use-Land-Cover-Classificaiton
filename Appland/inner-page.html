@@ -91,19 +91,54 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
+    <!-- ======= About API ======= -->
+    <section id="features" class="features">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>About API</h2>
+          <p>
+            The API takes image inputs from the user and returns the classified image back to the user. The user can mention their requirements in the request section along with its specific parameters. According to the request, a response will be generated and following that, its land cover will be stated.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- End About API Section -->
+
     <section class="inner-page">
       <!-- ======= About API ======= -->
-      <div class="container">
-        <h3>About API</h3>
-        <p>
-          The API takes image inputs from the user and returns the classified image back to the user. The user can mention their requirements in the request section along with its specific parameters. According to the request, a response will be generated and following that, its land cover will be stated.
-        </p>
-      </div>
 
       <!-- API Usage -->
       <div class="container">
         <h3>API Usage</h3>
 
+        <!-- Request -->
+        <div class="container">
+          <h4>Request</h4>
+          <pre>
+            <strong>Method</strong>    POST
+            <strong>URL</strong>       https://deepsight.azurewebsites.net/predict/
+            <strong>BODY</strong>      
+            {
+              img: [binary]
+            }
+          </pre>
+        </div>
+
+        <br />
+
+        <!-- Response -->
+        <div class="container">
+          <h4>Response</h4>
+          <pre>
+            {
+              class: classifiedClass
+            }
+          </pre>
+        </div>
+
+        <br />
+
+        <!-- API Demo -->
         <div class="container">
           <h4>Demo</h4>
           <div class="col-lg-6 info" data-aos="fade-up">
@@ -130,25 +165,21 @@
               <div class="form-group"><button type="submit" class="btn btn-outline-info">Send Request</button></div>
             </form>
           </div>
+
+          <div class="container">
+            <h6>Request</h6>
+            <pre id="requestPara">
+            
+            </pre>
+          </div>
+
+          <div class="container">
+            <h6>Response</h6>
+            <pre id="responsePara">
+            
+            </pre>
+          </div>
         </div>
-
-        <div class="container">
-          <h4>Request</h4>
-          <pre id="requestPara">
-            Example inner page template
-          </pre>
-        </div>
-
-        <br />
-
-        <div class="container">
-          <h4>Response</h4>
-          <pre id="responsePara">
-            Example inner page template
-          </pre>
-        </div>
-
-        <br />
 
         <div class="container">
           <h4>Important Points</h4>
