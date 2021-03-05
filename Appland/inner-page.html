@@ -60,6 +60,18 @@
       </nav><!-- .nav-menu -->
 
     </div>
+    <style>
+      input[type="file"] {
+        display: none;
+      }
+
+      .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+    </style>
   </header><!-- End Header -->
 
   <main id="main">
@@ -96,30 +108,44 @@
           <h4>Demo</h4>
           <div class="col-lg-6 info" data-aos="fade-up">
             <!-- <i class="bx bx-envelope"></i> -->
-            <h5>Select File</h5>
+            <!-- <h5>Select File</h5> -->
             <form role="form" class="php-email-form" data-aos="fade-up" id="APIDemoForm">
               <div class="form-group">
-                <input placeholder="TIFF Image" type="file" accept="image/*" name="img" class="form-control" id="img" data-msg="Please select only 1 image" />
+                <label class="custom-file-upload" >
+                  <input 
+                    placeholder="TIFF Image" 
+                    type="file" 
+                    accept="image/*" 
+                    name="img" 
+                    class="form-control" 
+                    id="img" 
+                    data-msg="Please select only 1 image" 
+                    onchange="fileUploadChange()"
+                  />
+                  <span id="ImageName">Upload tif image</span>
+                </label>
+                
                 <div class="validate"></div>
               </div>
-              <div class="text-center"><button type="submit" class="btn btn-outline-info">Send Request</button></div>
+              <div class="form-group"><button type="submit" class="btn btn-outline-info">Send Request</button></div>
             </form>
           </div>
         </div>
+
         <div class="container">
           <h4>Request</h4>
-          <p>
+          <pre id="requestPara">
             Example inner page template
-          </p>
+          </pre>
         </div>
 
         <br />
 
         <div class="container">
           <h4>Response</h4>
-          <p>
+          <pre id="responsePara">
             Example inner page template
-          </p>
+          </pre>
         </div>
 
         <br />
@@ -277,6 +303,10 @@
 
   <script>
 
+    function fileUploadChange(e) {
+      document.getElementById('ImageName').innerText = document.getElementById('img').value.split('\\').pop()
+    }
+
     APIDemoForm.onsubmit = async(e) => {
       console.log(e)
 
@@ -288,12 +318,34 @@
 
       console.log(body)
       
+      let req = JSON.stringify({
+        url: 'https://deepsight.azurewebsites.net/predict/',
+        method: 'POST',
+        body: {img: document.getElementById('img').value}      
+      }, null, 2)
+
       await fetch('https://deepsight.azurewebsites.net/predict/', {
         method: 'POST',
-        mode: 'no-cors',
+        // mode: 'no-cors',
         body: body
       }).then((response) => {
         console.log(response)
+          // document.getElementById('requestPara').innerHTML = req
+          // document.getElementById('responsePara').innerHTML = JSON.stringify(response, undefined, 2)
+        response.json().then((res) => {
+          console.log(res)
+          document.getElementById('requestPara').innerHTML = req
+          res = {
+            ...res,
+            status: response.status,
+            statusText: response.statusText
+          }
+          document.getElementById('responsePara').innerHTML = JSON.stringify(res, null, 2)
+
+          // document.getElementById('responsePara').append(JSON.stringify(response.headers, undefined, 2))
+        }).catch((e) => {
+          console.error(e)
+        })
       }).catch((e) => {
         console.error(e)
       });
