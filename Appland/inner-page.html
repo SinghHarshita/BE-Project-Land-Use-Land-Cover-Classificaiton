@@ -60,6 +60,18 @@
       </nav><!-- .nav-menu -->
 
     </div>
+    <style>
+      input[type="file"] {
+        display: none;
+      }
+
+      .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+    </style>
   </header><!-- End Header -->
 
   <main id="main">
@@ -79,33 +91,95 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
-    <section class="inner-page">
+    <!-- ======= About API ======= -->
+    <section id="features" class="features">
       <div class="container">
-        <h3>About API</h3>
-        <p>
-          The API takes image inputs from the user and returns the classified image back to the user. The user can mention their requirements in the request section along with its specific parameters. According to the request, a response will be generated and following that, its land cover will be stated.
-        </p>
+        <div class="section-title" data-aos="fade-up">
+          <h2>About API</h2>
+          <p>
+            The API takes image inputs from the user and returns the classified image back to the user. The user can mention their requirements in the request section along with its specific parameters. According to the request, a response will be generated and following that, its land cover will be stated.
+          </p>
+        </div>
       </div>
+    </section>
+    <!-- End About API Section -->
 
+    <section class="inner-page">
+      <!-- ======= About API ======= -->
+
+      <!-- API Usage -->
       <div class="container">
         <h3>API Usage</h3>
+
+        <!-- Request -->
         <div class="container">
           <h4>Request</h4>
-          <p>
-            Example inner page template
-          </p>
+          <pre>
+            <strong>Method</strong>    POST
+            <strong>URL</strong>       https://deepsight.azurewebsites.net/predict/
+            <strong>BODY</strong>      
+            {
+              img: [binary]
+            }
+          </pre>
         </div>
 
         <br />
 
+        <!-- Response -->
         <div class="container">
           <h4>Response</h4>
-          <p>
-            Example inner page template
-          </p>
+          <pre>
+            {
+              class: classifiedClass
+            }
+          </pre>
         </div>
 
         <br />
+
+        <!-- API Demo -->
+        <div class="container">
+          <h4>Demo</h4>
+          <div class="col-lg-6 info" data-aos="fade-up">
+            <!-- <i class="bx bx-envelope"></i> -->
+            <!-- <h5>Select File</h5> -->
+            <form role="form" class="php-email-form" data-aos="fade-up" id="APIDemoForm">
+              <div class="form-group">
+                <label class="custom-file-upload" >
+                  <input 
+                    placeholder="TIFF Image" 
+                    type="file" 
+                    accept="image/*" 
+                    name="img" 
+                    class="form-control" 
+                    id="img" 
+                    data-msg="Please select only 1 image" 
+                    onchange="fileUploadChange()"
+                  />
+                  <span id="ImageName">Upload tif image</span>
+                </label>
+                
+                <div class="validate"></div>
+              </div>
+              <div class="form-group"><button type="submit" class="btn btn-outline-info">Send Request</button></div>
+            </form>
+          </div>
+
+          <div class="container">
+            <h6>Request</h6>
+            <pre id="requestPara">
+            
+            </pre>
+          </div>
+
+          <div class="container">
+            <h6>Response</h6>
+            <pre id="responsePara">
+            
+            </pre>
+          </div>
+        </div>
 
         <div class="container">
           <h4>Important Points</h4>
@@ -139,6 +213,7 @@
         </div>
       </div>
 
+      <!-- Demo -->
       <div class="container">
         <h3>Accuracy Details</h3>
         <table class="table table-bordered table-hover">
@@ -204,40 +279,41 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
+
     <div class="footer-top">
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-up">
+          <div class="col-lg-4 col-md-6 footer-contact" data-aos="fade-up">
             <h3>DeepSight</h3>
-              <strong>Phone:</strong> +1 5589 55488 64<br>
-              <strong>Email:</strong> 2017.harshita.singh@ves.ac.in<br>
+              <!-- <strong>Phone:</strong> +1 5589 55488 64<br> -->
+              <strong>Email:</strong> we.hiresight@gmail.com<br>
             </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="100">
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Gallery</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">TechStack</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Contact</a></li>
             </ul>
           </div>
 
-          <div class=x"col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-4 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="200">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Semantics</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Classification</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">API Demo</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Documentation</a></li>
               <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li> -->
               <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li> -->
               <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li> -->
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="300">
+          <!-- <div class="col-lg-3 col-md-6 footer-links" data-aos="fade-up" data-aos-delay="300">
             <h4>Our Social Networks</h4>
             <p>You can also find us here as we are available on these social media sites.</p>
             <div class="social-links mt-3">
@@ -247,39 +323,80 @@
               <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
               <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
-          </div>
+          </div> -->
 
         </div>
-      </div>
-    </div>
-
-    <div class="container py-4">
-      <div class="copyright">
-        &copy; Copyright <strong><span>DeepSight</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/ -->
-        Designed by DeepSight UI Team
       </div>
     </div>
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
+  <script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    function fileUploadChange(e) {
+      document.getElementById('ImageName').innerText = document.getElementById('img').value.split('\\').pop()
+    }
+
+    APIDemoForm.onsubmit = async(e) => {
+      console.log(e)
+
+      e.preventDefault();
+
+      let body = new FormData()
+
+      body.append('img', document.getElementById('img').files[0], document.getElementById('img').value)
+
+      console.log(body)
+      
+      let req = JSON.stringify({
+        url: 'https://deepsight.azurewebsites.net/predict/',
+        method: 'POST',
+        body: {img: document.getElementById('img').value}      
+      }, null, 2)
+
+      await fetch('https://deepsight.azurewebsites.net/predict/', {
+        method: 'POST',
+        // mode: 'no-cors',
+        body: body
+      }).then((response) => {
+        console.log(response)
+          // document.getElementById('requestPara').innerHTML = req
+          // document.getElementById('responsePara').innerHTML = JSON.stringify(response, undefined, 2)
+        response.json().then((res) => {
+          console.log(res)
+          document.getElementById('requestPara').innerHTML = req
+          res = {
+            ...res,
+            status: response.status,
+            statusText: response.statusText
+          }
+          document.getElementById('responsePara').innerHTML = JSON.stringify(res, null, 2)
+
+          // document.getElementById('responsePara').append(JSON.stringify(response.headers, undefined, 2))
+        }).catch((e) => {
+          console.error(e)
+        })
+      }).catch((e) => {
+        console.error(e)
+      });
+
+      // let result = await response.json();
+
+      // console.log(result, response)
+    } 
+  </script>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendor/venobox/venobox.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+  
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 
 </body>
 
