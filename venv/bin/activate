@@ -46,7 +46,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV='/home/harshita/Desktop/BE-Project/venv'
+VIRTUAL_ENV='/mnt/e/parth/BE-Project/BE-Project/venv'
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
